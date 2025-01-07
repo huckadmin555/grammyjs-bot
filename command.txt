@@ -8,3 +8,5 @@
 #STUDIO_Knowledge дает 8% скидки осенью'
 6. Bot_studio - создать своего Телеграм бота 
 7. rules - правила пользования ботом.
+
+https://github.com/huckadmin555/grammy-bot.git
