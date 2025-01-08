@@ -63,7 +63,7 @@ const shopKeyboard = new InlineKeyboard().text('Интернет-магазин'
 
 bot.callbackQuery('shop', async (ctx) => {
     await ctx.answerCallbackQuery();//важно нужно в каждом обработчике клавиатуры чтобы заработало
-    await ctx.callbackQuery.message.editText('вот некоторые услуги которые у нас есть', {
+    await ctx.callbackQuery.message.editText('вот некоторые виды сайтов для заказа:', {
         reply_markup: shopKeyboard
     });
 });
