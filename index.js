@@ -11,14 +11,6 @@ bot.api.setMyCommands([
         description: 'Запуск бота',
     },
     {
-        command: 'sites',
-        description: 'выбор сайта: интернет магазин, лэндинг, сайт визитка и т.д.'
-    },
-    {
-        command: 'share',
-        description: 'Поделиться'
-    },
-    {
         command: 'our_website',
         description: 'переходите на наш сайт!'
     },
@@ -38,14 +30,16 @@ bot.command('start', async (ctx) => {
         /* parse_mode: 'HTML',
         disable_web_page_preview: 'True' */
     });
-    await ctx.reply('В меню ты сможешь найти все что тебе нужно а если этого нет то напиши сообщение с add и мы добавим это в нашего бота')
+    await ctx.reply('В меню ты сможешь найти все что тебе нужно а если этого нет то напиши сообщение с !ADD и мы добавим это в нашего бота')
     await ctx.reply('🎉')
 });
 
 const menuKeyboard = new InlineKeyboard().text('пройти консультацию', 'consultation').row()
 .text('обратиться в поддержку', 'support').row()
-.text('Правила пользования', 'supp')
+.text('Правила пользования', 'supp').row()
+.text('каталог', 'shop')
 const backKeyboard = new InlineKeyboard().text('👈🏻 Назад в меню', 'back')
+const back2Keyboard = new InlineKeyboard().text('👈🏻 Назад в меню', 'back2')
 
 bot.command('menu', async (ctx) => {
     await ctx.reply('Выберите пункт меню', {
@@ -57,6 +51,109 @@ bot.callbackQuery('consultation', async (ctx) => {
     await ctx.answerCallbackQuery();//важно нужно в каждом обработчике клавиатуры чтобы заработало
     await ctx.callbackQuery.message.editText('Прохождение консультации:', {
         reply_markup: backKeyboard
+    });
+});
+
+const shopKeyboard = new InlineKeyboard().text('Интернет-магазин', 'shopNet').row()
+    .text('Лэндинг', 'lending').row()
+    .text('Визитка', 'viza').row()
+    .text('Корпоративный сайт', 'korpSite').row()
+    .text('Промо-сайт', 'promoSite').row()
+    .text('👈🏻 Назад в меню', 'back')
+
+bot.callbackQuery('shop', async (ctx) => {
+    await ctx.answerCallbackQuery();//важно нужно в каждом обработчике клавиатуры чтобы заработало
+    await ctx.callbackQuery.message.editText('вот некоторые услуги которые у нас есть', {
+        reply_markup: shopKeyboard
+    });
+});
+
+const netKeyboard = new InlineKeyboard()
+    .text('Тариф СТАРТ', 'tarifSN').row()
+    .text('Тариф БИЗНЕС', 'tarifBN').row()
+    .text('Тариф ПРЕМИУМ', 'tarifPN').row()
+    .text('👈🏻 Назад в меню', 'back2')
+
+const netMinKeyboard = new InlineKeyboard()
+    .text('Тариф СТАРТ', 'tarifSNM').row()
+    .text('Тариф БИЗНЕС', 'tarifBNM').row()
+    .text('Тариф ПРЕМИУМ', 'tarifPNM').row()
+    .text('👈🏻 Назад в меню', 'back2')
+
+bot.callbackQuery('shopNet', async (ctx) => {
+    await ctx.answerCallbackQuery();//важно нужно в каждом обработчике клавиатуры чтобы заработало
+    await ctx.callbackQuery.message.editText('Выбирите тариф:', {
+        reply_markup: netKeyboard
+    });
+    /* const messageTarif = await ctx.reply('что будет включено в интернет-магазин на тарифе СТАРТ:')
+    const messageTarif1 = await ctx.reply('1.Анализ конкурентов и рынка')
+    const messageTarif2 = await ctx.reply('2.Создание продающих текстов')
+    const messageTarif3 = await ctx.reply('3.Разработка уникального торгового предложения')
+    const messageTarif4 = await ctx.reply('4.Адаптивность сайта под мобильные и ноутбуки')
+    const messageTarif5 = await ctx.reply('5.Подключение домена к сайту')
+    const messageTarif6 = await ctx.reply('6.Создание формы обратной связи') */
+});
+
+bot.callbackQuery('lending', async (ctx) => {
+    await ctx.answerCallbackQuery();//важно нужно в каждом обработчике клавиатуры чтобы заработало
+    await ctx.callbackQuery.message.editText('Выбирите тариф:', {
+        reply_markup: netMinKeyboard
+    });
+    /* const messageTarif = await ctx.reply('что будет включено в интернет-магазин на тарифе СТАРТ:')
+    const messageTarif1 = await ctx.reply('1.Анализ конкурентов и рынка')
+    const messageTarif2 = await ctx.reply('2.Создание продающих текстов')
+    const messageTarif3 = await ctx.reply('3.Разработка уникального торгового предложения')
+    const messageTarif4 = await ctx.reply('4.Адаптивность сайта под мобильные и ноутбуки')
+    const messageTarif5 = await ctx.reply('5.Подключение домена к сайту')
+    const messageTarif6 = await ctx.reply('6.Создание формы обратной связи') */
+});
+
+bot.callbackQuery('viza', async (ctx) => {
+    await ctx.answerCallbackQuery();//важно нужно в каждом обработчике клавиатуры чтобы заработало
+    await ctx.callbackQuery.message.editText('Выбирите тариф:', {
+        reply_markup: netMinKeyboard
+    });
+    /* const messageTarif = await ctx.reply('что будет включено в интернет-магазин на тарифе СТАРТ:')
+    const messageTarif1 = await ctx.reply('1.Анализ конкурентов и рынка')
+    const messageTarif2 = await ctx.reply('2.Создание продающих текстов')
+    const messageTarif3 = await ctx.reply('3.Разработка уникального торгового предложения')
+    const messageTarif4 = await ctx.reply('4.Адаптивность сайта под мобильные и ноутбуки')
+    const messageTarif5 = await ctx.reply('5.Подключение домена к сайту')
+    const messageTarif6 = await ctx.reply('6.Создание формы обратной связи') */
+});
+
+bot.callbackQuery('korpSite', async (ctx) => {
+    await ctx.answerCallbackQuery();//важно нужно в каждом обработчике клавиатуры чтобы заработало
+    await ctx.callbackQuery.message.editText('Выбирите тариф:', {
+        reply_markup: netKeyboard
+    });
+    /* const messageTarif = await ctx.reply('что будет включено в интернет-магазин на тарифе СТАРТ:')
+    const messageTarif1 = await ctx.reply('1.Анализ конкурентов и рынка')
+    const messageTarif2 = await ctx.reply('2.Создание продающих текстов')
+    const messageTarif3 = await ctx.reply('3.Разработка уникального торгового предложения')
+    const messageTarif4 = await ctx.reply('4.Адаптивность сайта под мобильные и ноутбуки')
+    const messageTarif5 = await ctx.reply('5.Подключение домена к сайту')
+    const messageTarif6 = await ctx.reply('6.Создание формы обратной связи') */
+});
+
+bot.callbackQuery('promoSite', async (ctx) => {
+    await ctx.answerCallbackQuery();//важно нужно в каждом обработчике клавиатуры чтобы заработало
+    await ctx.callbackQuery.message.editText('Выбирите тариф:', {
+        reply_markup: netKeyboard
+    });
+    /* const messageTarif = await ctx.reply('что будет включено в интернет-магазин на тарифе СТАРТ:')
+    const messageTarif1 = await ctx.reply('1.Анализ конкурентов и рынка')
+    const messageTarif2 = await ctx.reply('2.Создание продающих текстов')
+    const messageTarif3 = await ctx.reply('3.Разработка уникального торгового предложения')
+    const messageTarif4 = await ctx.reply('4.Адаптивность сайта под мобильные и ноутбуки')
+    const messageTarif5 = await ctx.reply('5.Подключение домена к сайту')
+    const messageTarif6 = await ctx.reply('6.Создание формы обратной связи') */
+});
+
+bot.callbackQuery('back2', async (ctx) => {
+    await ctx.answerCallbackQuery();
+    await ctx.callbackQuery.message.editText('вот некоторые услуги которые у нас есть', {
+        reply_markup: shopKeyboard
     });
 });
 
@@ -83,7 +180,7 @@ bot.callbackQuery('back', async (ctx) => {
 });
 
 bot.command('add', async (ctx) => {
-    await ctx.reply('напишите ваше предложение по добавлению новых функций в бота')
+    await ctx.reply('напишите ваше предложение по добавлению новых функций в бота указав в любом месте предложения !ADD')
 })
 
 bot.command('mood', async (ctx) => {
@@ -124,9 +221,16 @@ bot.callbackQuery(/btn-[1-3]/, async (ctx) => {
 }); */
 
 bot.command('sites', async (ctx) => {
-    const siteKeyboard = new Keyboard().text('Интернет-магазин').row().text('Лэндинг').row().text('Визитка').row().text('Корпоративный сайт').row().text('Промо-сайт').oneTime().resized()
+    /* const siteKeyboard = new Keyboard().text('Интернет-магазин').row().text('Лэндинг').row().text('Визитка').row().text('Корпоративный сайт').row().text('Промо-сайт').oneTime().resized() */
+    const moodLabels2 = ['Интернет-магазин', 'Лэндинг', 'Визитка', 'Корпоративный сайт', 'Промо-сайт']
+    const rows = moodLabels2.map((label2) => {
+        return [
+            Keyboard.text(label2)
+        ]
+    });
+    const SiteKeyboard = Keyboard.from(rows).resized()
     await ctx.reply('Выберите сайт из предложенных вариантов:', {
-        reply_markup: siteKeyboard
+        reply_markup: SiteKeyboard
     });
 });
 
@@ -137,11 +241,25 @@ bot.hears(/!ADD/, async (ctx) => {
     await ctx.reply('👌');
 });
 
-bot.hears('Интернет-магазин', async (ctx) => {
+/* bot.hears('Интернет-магазин', async (ctx) => {
     await ctx.reply('прекрасно!', {
         reply_parameters: {message_id: ctx.msg.message_id}
     });
+}); */
+const PhoneKeyboard = new Keyboard().requestContact('отправить номер').placeholder('Отправить контакт').resized().oneTime()
+bot.hears('Интернет-магазин', async (ctx) => {
+    await ctx.reply('мы вас поняли оставьте телефон чтобы наш менеджер перезвонил вам.', {
+        reply_markup: {remove_keyboard: true}
+    });  
+
+    await ctx.reply('мы храним в безопастности данные наших клиентов это прописанно в <a href="#">политке конфиденциальности</a>', {
+        reply_markup: PhoneKeyboard,
+        parse_mode: 'HTML',
+        reply_markup: {remove_keyboard: true}
+    })
 });
+
+
 
 bot.hears([/пиздец/, /пизда/, /черт/, /гандон/, /педик/, /додик/, /блять/, /сука/, /сукин сын/, /пидорас/, /уебище/, /пидор/ ], async (ctx) => {
     await ctx.reply('Не советую а то бан полетит')
